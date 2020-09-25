@@ -1,16 +1,11 @@
-
-
-
-
 import requests
-#import serial
+import serial
 import datetime
 import time
 import schedule
 import os
 
 class Light_on:
-
     def __init__(self, hr, min):
         self.hr = hr
         self.min = min
@@ -25,7 +20,6 @@ class Light_on:
         return self.hr +":"+ self.min
 
 class Light_off:
-
     def __init__(self, hr, min):
         self.hr = hr
         self.min = min
@@ -49,8 +43,8 @@ VARIABLE_LABEL_3 = "soil"
 TOKEN = os.environ.get("UBIDOTS_KEY")
 DELAY = 1  # Delay in seconds
 
-#ser = serial.Serial("/dev/ttyACM0", 9600)
-#time.sleep(6)
+ser = serial.Serial("/dev/ttyACM0", 9600)
+time.sleep(6)
 
 
 #This function made by Jose García @https://github.com/jotathebest/
@@ -201,7 +195,7 @@ def print_sensor_values():
     log_now = now.strftime("%d-%m-%Y %H:%M:%S")
     print(log_now)
     print("Temperature: {}".format(sensor_value_1))
-    print("Amount of light: {}".format(sensor_value2))
+    print("Amount of light: {}".format(sensor_value_2))
     print("Soil moisture: {}".format(sensor_value_3))
 
 # function for testing
@@ -244,7 +238,6 @@ def main_ubidots():
             i = "0"+ i
         i = i+":00"
         schedule.every().day.at(i).do(send_values)
-
     schedule.every().day.at("12:30").do(light_on_off)
     print("Ubidots functions are on.")
     print("CTRL-C to stop udibots functions")
@@ -253,7 +246,7 @@ def main_ubidots():
             schedule.run_pending()
             time.sleep(1)
     except KeyboardInterrupt:
-        break
+        pass
 
 
 def main_menu():
